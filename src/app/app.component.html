@@ -1,0 +1,12 @@
+<div class="container">
+  <div *ngFor="let review of reviews">
+    <div class="review">
+      <img class="cover-small" src="{{ review.image }}" alt="">
+      <div class="review-right">
+        <p class="review-title">{{ review.artist }} - <b>{{ review.title }}</b></p>
+        <p><b>{{ review.year }}</b></p>
+        <p> My Rating: <b>{{ review.rating }}</b></p>
+      </div>
+    </div>
+  </div>
+</div>

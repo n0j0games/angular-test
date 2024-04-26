@@ -1,0 +1,44 @@
+:root {
+    --background: black;
+    --text: white;
+}
+
+p {
+    margin: 0;
+    font-family: Barlow, sans-serif;
+    font-weight: 300;
+}
+
+b {
+    font-weight: 500;
+}
+
+.review-title {
+    font-size: 18px;
+}
+
+img {
+    border-radius: 5px;
+    padding: 0;
+}
+
+.cover-small {
+    width: 100px;
+    height: 100px;
+}
+
+.review {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.review-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
