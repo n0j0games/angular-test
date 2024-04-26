@@ -1,12 +1,35 @@
 <div class="container">
-  <div *ngFor="let review of reviews">
-    <div class="review">
-      <img class="cover-small" src="{{ review.image }}" alt="">
+
+  <select [(ngModel)]="listFilter">
+    <option value="0">Show All</option>
+    <option value="1">8+ Rating</option>
+  </select>
+
+  <div class="review-container" *ngIf="visibleItems.length === 0 else showReviews">
+    No Reviews!
+  </div> 
+
+  <ng-template #showReviews>
+    <div class="review" *ngFor="let review of visibleItems; index as i"> <!-- loop for all review items -->
+      <img class="cover-small" [src]="review.image" alt="">
       <div class="review-right">
         <p class="review-title">{{ review.artist }} - <b>{{ review.title }}</b></p>
         <p><b>{{ review.year }}</b></p>
-        <p> My Rating: <b>{{ review.rating }}</b></p>
+        <p *ngIf="review.rating"> My Rating: <b>{{ review.rating }}</b></p> <!-- only show rating if there's one -->
+        <form class="review-submit" *ngIf="!review.rating">
+          <p>My Rating:</p>
+          <input type="number" placeholder="0" min="0" max="10" step="1" [(ngModel)]="ratings[i]" [ngModelOptions]="{standalone : true}">
+          <button type="submit" (click)="$event.preventDefault; setRating(review, i)">Submit</button>
+        </form>
+        <p>Listened to <input 
+          type="checkbox"
+          [checked]="review.listened" 
+          [attr.data-index]="i"
+          (click)="toggleListened(review)"
+          >
+        </p> <!-- bind checked to property with [], bind to attributes with [attr.]-->
       </div>
     </div>
-  </div>
+  </ng-template>
+
 </div>
