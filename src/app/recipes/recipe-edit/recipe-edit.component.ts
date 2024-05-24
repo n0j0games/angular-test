@@ -38,6 +38,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     let recipeImgPath = '';
     let recipeDescription = '';
     let recipePortions : number = 1;
+    let recipeType = '';
+    let recipeDifficulty = '';
+    let recipeDuration : number = 20;
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
@@ -46,6 +49,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       recipeImgPath = recipe.imagePath;
       recipeDescription = recipe.description;
       recipePortions = recipe.portions;
+      recipeType = recipe.type ? recipe.type : "Lunch";
+      recipeDifficulty = recipe.difficulty ? recipe.difficulty : "Beginner";
+      recipeDuration = recipe.duration ? recipe.duration : 20;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           let unit = "";
@@ -68,6 +74,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       imagePath: new FormControl(recipeImgPath, Validators.required),
       description: new FormControl(recipeDescription, Validators.required),
       portions: new FormControl(recipePortions, [Validators.min(1), Validators.required]),
+      type : new FormControl(recipeType, Validators.required),
+      difficulty : new FormControl(recipeDifficulty, Validators.required),
+      duration : new FormControl(recipeDuration, [Validators.required, Validators.min(5)]),
       ingredients: recipeIngredients,
     });
   }

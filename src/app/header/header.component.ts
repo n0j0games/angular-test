@@ -30,12 +30,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userSub.unsubscribe();
   }
 
-  onSaveData() {
-    this.dsService.storeRecipes();
-  }
-
-  onFetchData() {
-    this.dsService.fetchRecipes().subscribe();
-  }
-
 }

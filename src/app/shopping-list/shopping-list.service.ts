@@ -16,8 +16,23 @@ export class ShoppingListService {
     }
 
     addIngredient(ingredient : Ingredient) {
-        this.ingredients.push(ingredient);
+        this.insertIngredient(ingredient);
         this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    clearIngredients() {
+        this.ingredients = [];
+        this.ingredientsChanged.next([]);
+    }
+
+    private insertIngredient(ingredient : Ingredient) {
+        for (let ing of this.ingredients) {
+            if (ing.name == ingredient.name && ing.unit == ingredient.unit) {
+                ing.amount += ingredient.amount;
+                return;
+            }
+        }
+        this.ingredients.push(ingredient);
     }
 
     setIngredient(index : number, ingredient : Ingredient) {
@@ -25,8 +40,15 @@ export class ShoppingListService {
         this.ingredientsChanged.next(this.ingredients.slice());
     }
 
+    setIngredients(ingredients : Ingredient[]) {
+        this.ingredients = [...ingredients];
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
     addIngredients(ingredients : Ingredient[]) {
-        this.ingredients.push(...ingredients);
+        for (let ingredient of ingredients) {
+            this.insertIngredient(ingredient);
+        }
         this.ingredientsChanged.next(this.ingredients.slice());
     }
 

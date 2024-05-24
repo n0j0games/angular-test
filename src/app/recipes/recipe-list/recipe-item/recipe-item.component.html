@@ -1,7 +1,7 @@
 <a [routerLink]="[index]" class="list-group-item-borderless list-group-item clearfix" routerLinkActive="active">
     <div class="pull-left">
       <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
-      <p class="list-group-item-text">{{ recipe.description }}</p>
+      <p class="list-group-item-text">{{ recipe.type ? recipe.type : "Lunch" }} - {{ recipe.duration }} min - {{ recipe.difficulty }} </p>
     </div>
     <span class="pull-right">
       <img

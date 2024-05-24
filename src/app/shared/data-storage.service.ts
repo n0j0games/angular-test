@@ -1,18 +1,31 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { RecipeService } from '../recipes/recipe.service';
-import { Recipe } from '../recipes/recipe-list/recipe.model';
-import { map, tap, take, exhaustMap } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Recipe } from '../recipes/recipe.model';
+import { map, tap } from 'rxjs/operators';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Ingredient } from './ingredient.model';
 
 @Injectable()
 export class DataStorageService {
   constructor(
     private http: HttpClient,
     private recipesService: RecipeService,
-    private authService: AuthService
+    private slService: ShoppingListService
   ) {}
+
+  storeShoppingList() {
+    const shoppinglist = this.slService.getIngredients();
+    console.log(shoppinglist)
+    this.http
+      .put(
+        'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/shoppinglist.json',
+        shoppinglist
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
 
   storeRecipes() {
     const recipes = this.recipesService.getRecipes();
@@ -26,8 +39,19 @@ export class DataStorageService {
       });
   }
 
+  fetchShoppingList() {
+    return this.http.get<Ingredient[]>(
+      'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/shoppinglist.json',
+    ).pipe(
+      tap((ingredients) => {
+        console.log(ingredients)
+        if (ingredients != null)
+          this.slService.setIngredients(ingredients);
+      })
+    );
+  }
+
   fetchRecipes() {
-    
     return this.http.get<Recipe[]>(
         'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/recipes.json',
     ).pipe(
@@ -40,7 +64,8 @@ export class DataStorageService {
         });
       }),
       tap((recipes) => {
-        this.recipesService.setRecipes(recipes);
+        if (recipes != null)
+          this.recipesService.setRecipes(recipes);
       })
     );
   }

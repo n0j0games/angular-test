@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Recipe } from './recipe.model';
+import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Subscription } from 'rxjs';
