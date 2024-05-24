@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-xs-12">
+        <img [src]="visibleRecipe.imagePath" alt="" class="img-responsive">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h1>{{ visibleRecipe.name }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group" appDropdown>
+            <button type="button" class="button dropdown-toggle">Manage Recipe <span class=caret></span></button>
+            <ul class="dropdown-menu">
+                <li><a (click)="shopIngredients()" style="cursor: pointer;">Shop Ingredients</a></li>
+                <li><a [routerLink]="['edit']">Edit Recipe</a></li>
+                <li><a (click)="deleteRecipe()">Delete Recipe</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr>
+<h4>Ingredients:</h4>
+<div class="row">
+    <div class="col-xs-12">
+        Portions: {{ visibleRecipe.portions ? visibleRecipe.portions : 1 }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="list-group">
+            <li class="list-group-item-border list-group-item" *ngFor="let ingredient of visibleRecipe.ingredients">
+                {{ ingredient.name }}{{ (ingredient.amount == 1 && !ingredient.unit) ? "" : ": "+ingredient.amount }} {{ ingredient.unit }}
+            </li>
+        </ul>
+    </div>
+</div>
+<hr>
+<h4>Cooking Instructions:</h4>
+<div class="row">
+    <div class="col-xs-12">
+        {{ visibleRecipe.description }}
+    </div>
+</div>
+<hr>
+<br>

@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 
+
+
 # Node
 /node_modules
 npm-debug.log
@@ -40,6 +42,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-.vscode/extensions.json
-.vscode/launch.json
-.vscode/tasks.json
+/.vscode
+.editorconfig

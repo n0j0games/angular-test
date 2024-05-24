@@ -1,0 +1,251 @@
+:root {
+    --g50: #EFFAF3;
+    --g100: #D9F2E1;
+    --g200: #B5E5C7;
+    --g300: #76cb9b;
+    --g400: #52B580;
+    --g500: #2F9A64;
+    --g600: #207B50;
+    --g700: #1A6242;
+    --g800: #174E36;
+    --g900: #13412D;
+    --g950: #0A241A;
+    --x200: #DFDFDF;
+    --x300: #C9C9C9;
+    --x400: #ADADAD;
+    --x500: #999999;
+    --x600: #888888;
+    --x700: #7B7B7B;
+    --x800: #676767;
+    --x900: #545454;
+    --x950: #363636;
+    --r100: #F9E7E7;
+    --r200: #F4D4D4;
+    --r300: #EAAEAE;
+    --r400: #DF8A8A;
+    --r500: #CF6464;
+    --r600: #BA4848;
+    --r700: #9C3939;
+    --r800: #823232;
+    --r900: #6D2F2F;
+}
+
+html, body {
+    font-family: 'Barlow', sans-serif !important;
+    background-color: var(--g50) !important;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+h1 {
+    font-weight: 700 !important;
+}
+
+h4 {
+    font-weight: 700 !important;
+}
+
+.container-fluid {
+    background-color: var(--g400) !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.navbar a:hover {
+    background-color: var(--g600) !important;
+}
+
+.active a {
+    background-color: var(--g600) !important;
+}
+
+.navbar-nav li a {
+    color: white !important;
+}
+
+.navbar {
+    border: 0 !important;
+}
+
+.navbar-toggle {
+    border: 0 !important;
+}
+
+.navbar-toggle:hover {
+    background-color: var(--g500) !important;
+}
+
+.navbar-toggle:focus {
+    background-color: var(--g500) !important;
+}
+
+span.icon-bar {
+    background-color: white !important;
+}
+
+.dropdown-open:focus .dropdown-toggle {
+    background-color: var(--g600) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--g500) !important;
+    border: 0 !important;
+}
+
+.dropdown-menu a {
+    color: white !important;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--g600) !important;
+}
+
+li.dropdown-open:focus a.dropdown-toggle {
+    background-color: red !important;
+}
+
+.list-group-item-borderless {
+    background-color: var(--g100) !important;
+    outline: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.list-group-item-border {
+    background-color: var(--g100) !important;
+    outline: none !important;
+    border: 1px solid var(--g300) !important;    
+}
+
+.start-col {
+    padding-right: 0;
+}
+
+.mid-col {
+    padding: 0;
+}
+
+.form-control {
+    text-decoration: none !important;
+}
+
+input.ng-touched.ng-invalid {
+    border: 1px solid var(--r600);
+    background-color: var(--r100);
+}
+
+.active {
+    background: linear-gradient(var(--g500), var(--g600)) !important;
+}
+
+.button {
+    outline: none;
+    border: none;
+    text-decoration: none;
+    margin: 5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: var(--g500);
+    color: white;
+    min-height: 34px;
+    min-width: 34px;
+}
+
+.button-neutral {
+    outline: none;
+    border: none;
+    text-decoration: none;
+    margin: 5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: var(--x500);
+    color: white;
+    min-height: 34px;
+    min-width: 34px;
+}
+
+.button-danger {
+    background: var(--r500);
+    outline: none;
+    border: none;
+    text-decoration: none;
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    min-height: 34px;
+    min-width: 34px;
+}
+
+.button:hover {
+    background: linear-gradient(var(--g600), var(--g700));
+}
+
+.button-neutral:hover {
+    background: linear-gradient(var(--x600), var(--x700));
+}
+
+.button-danger:hover {
+    background: linear-gradient(var(--r600), var(--r700));
+}
+
+.button:active {
+    background: linear-gradient(var(--g700), var(--g800));
+}
+
+.button-neutral:active {
+    background: linear-gradient(var(--x700), var(--x800));
+}
+
+.button-danger:active {
+    background: linear-gradient(var(--r700), var(--r800));
+}
+
+.button:disabled {
+    background: var(--g100);
+    color: var(--g400);
+}
+
+.button-neutral:disabled {
+    background: var(--x200);
+    color: var(--x400);
+}
+
+.button-danger:disabled {
+    background: var(--r100);
+    color: var(--r400);
+}
+
+img {
+    border-radius: 5px;
+}
+
+@media (min-width: 1100px) {
+    /*
+    Scrollbar
+     */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: linear-gradient(0deg, var(--dark2), #db0000);
+        background: var(--x200);
+        background-size: 400% 100%;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--x300);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--x500);
+    }
+}
