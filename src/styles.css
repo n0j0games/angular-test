@@ -183,7 +183,7 @@ input.ng-touched.ng-invalid {
     outline: none;
     border: none;
     text-decoration: none;
-    margin: 5;
+    margin: 0 5px 0 0;
     padding: 5px 10px;
     border-radius: 5px;
     background: var(--g500);
@@ -196,7 +196,7 @@ input.ng-touched.ng-invalid {
     outline: none;
     border: none;
     text-decoration: none;
-    margin: 5;
+    margin: 0 5px 0 0;
     padding: 5px 10px;
     border-radius: 5px;
     background: var(--x500);
@@ -210,7 +210,7 @@ input.ng-touched.ng-invalid {
     outline: none;
     border: none;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 5px 0 0;
     padding: 5px 10px;
     border-radius: 5px;
     color: white;
@@ -274,7 +274,8 @@ img {
 
 .detail-row {
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 5px 30px;
     margin: 5px 0 10px 0;
 }
 

@@ -4,6 +4,7 @@ import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Ingredient } from '../../shared/ingredient.model';
 import { DataStorageService } from '../../shared/data-storage.service';
+import { FoodType, getFoodIcon } from '../../shared/food-type.enum';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -31,33 +32,7 @@ export class RecipeDetailComponent implements OnInit {
       this.visibleRecipe = this.recipeService.getRecipe(this.id);
       this.originalPortions = this.visibleRecipe.portions;
       this.multiplier = this.originalPortions;
-
-      switch (this.visibleRecipe.type) {
-        case 'Breakfast':
-          this.typeClass = 'fa-solid fa-mug-saucer';
-          break;
-        case 'Soup':
-          this.typeClass = 'fa-solid fa-bowl-food';
-          break;
-        case 'Starter':
-          this.typeClass = 'fa-solid fa-bowl-rice';
-          break;
-        case 'Lunch':
-          this.typeClass = 'fa-solid fa-burger';
-          break;
-        case 'Dinner':
-          this.typeClass = 'fa-solid fa-utensils';
-          break;
-        case 'Snack':
-          this.typeClass = 'fa-solid fa-apple-whole';
-          break;
-        case 'Dessert':
-          this.typeClass = 'fa-solid fa-ice-cream';
-          break;
-        default:
-          this.typeClass = 'fa-solid fa-utensils';
-          break;
-      }
+      this.typeClass = getFoodIcon(this.visibleRecipe.type as FoodType);
     });
   }
 
@@ -71,7 +46,7 @@ export class RecipeDetailComponent implements OnInit {
       ingredientCopy.push(
         new Ingredient(
           ingredient.name,
-          (ingredient.amount * this.multiplier) / this.originalPortions,
+          this.getMultiplierValue(ingredient.amount),
           ingredient.unit
         )
       );
@@ -80,8 +55,7 @@ export class RecipeDetailComponent implements OnInit {
     this.dsService.storeShoppingList();
   }
 
-  deleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
-    this.router.navigate(['../'], { relativeTo: this.route });
+  getMultiplierValue(amount : number) {
+    return amount * this.multiplier / this.originalPortions;
   }
 }

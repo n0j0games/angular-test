@@ -17,24 +17,26 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="btn-group" appDropdown>
-            <button type="button" class="button dropdown-toggle">Manage Recipe <span class=caret></span></button>
+        <button class="button" [routerLink]="['edit']">Edit Recipe</button>
+        <!--<div class="btn-group" appDropdown>
+            <button type="button" class="button dropdown-toggle">Manage Recipe <span class=caret></span></button>            
             <ul class="dropdown-menu">
                 <li><a (click)="shopIngredients()" style="cursor: pointer;">Shop Ingredients</a></li>
                 <li><a [routerLink]="['edit']">Edit Recipe</a></li>
                 <li><a (click)="deleteRecipe()">Delete Recipe</a></li>
             </ul>
-        </div>
+        </div>-->
     </div>
 </div>
 <hr>
 <h4>Ingredients:</h4>
 <div class="row">
     <div class="col-xs-12 portion-calc-div">
-        <p class="details"><i class="fa-solid fa-bowl-food"></i> Portions:</p>
+        <p class="details"><i class="fa-solid fa-bowl-food"></i> Servings:</p>
         <form (ngSubmit)="onPortionSubmit()">
             <input class="portion-calc" type="number" id="portionMultiplier" min="1" [defaultValue]="visibleRecipe.portions" [(ngModel)]="multiplier" [ngModelOptions]="{standalone : true}">
         </form>
+        <button class="button" (click)="shopIngredients()">Shop Ingredients</button>
     </div>    
 </div>
 <br>
@@ -42,7 +44,7 @@
     <div class="col-xs-12">
         <ul class="list-group">
             <li class="list-group-item-border list-group-item" *ngFor="let ingredient of visibleRecipe.ingredients">
-                <b>{{ ingredient.name }}</b>{{ (!ingredient.unit) ? "" : ": "+ingredient.amount * multiplier / originalPortions }} {{ ingredient.unit }}
+                <b>{{ ingredient.name }}</b>{{ (!ingredient.unit) ? "" : ": "+getMultiplierValue(ingredient.amount) }} {{ ingredient.unit }}
             </li>
         </ul>
     </div>
@@ -50,7 +52,7 @@
 <hr>
 <h4>Cooking Instructions:</h4>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12" style="white-space: pre-wrap;">
         {{ visibleRecipe.description }}
     </div>
 </div>

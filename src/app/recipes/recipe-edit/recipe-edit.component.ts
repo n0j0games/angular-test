@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
+import { Unit } from '../../shared/unit.enum';
+import { FoodType } from '../../shared/food-type.enum';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +16,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   supscription : Subscription;
   recipeForm: FormGroup;
+
+  units = Object.values(Unit);
+  foodTypes = Object.values(FoodType);
 
   constructor(
     private route: ActivatedRoute,
@@ -111,4 +116,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   onDeleteIngredient(index : number) {
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
+
+  deleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
 }

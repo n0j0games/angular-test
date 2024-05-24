@@ -23,13 +23,7 @@
         <div class="col-sm-2 form-group">
           <label for="unit">Unit</label>
           <select id="unit" class="form-control" formControlName="unit">
-            <option value="">No Unit</option>
-            <option value="x">Pieces</option>
-            <option value="Pck.">Pck.</option>
-            <option value="g">g</option>
-            <option value="kg">kg</option>
-            <option value="EL">EL</option>
-            <option value="TL">TL</option>
+            <option [value]="unit" *ngFor="let unit of units">{{unit == "" ? "Hide Unit" : unit}}</option>
           </select>
           <!--<input
             type="text"
@@ -43,7 +37,7 @@
         <div class="col-xs-12">
           <button class="button" type="submit" [disabled]="!shoppingForm.valid">{{ editMode ? 'Update' : 'Add'}} Item</button>
           <button class="button-danger" type="button" [disabled]="!editMode" (click)="onDeleteItem()">Delete Item</button>
-          <button class="button-neutral" type="button" (click)="onClear()">Clear</button>
+          <button class="button-neutral" type="button" (click)="onClearList()">Clear</button>
         </div>
       </div>
     </form>

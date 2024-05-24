@@ -10,6 +10,7 @@ import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Unit } from '../../shared/unit.enum';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -22,6 +23,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  units = Object.values(Unit);
 
   shoppingForm: FormGroup;
   editMode = false;
@@ -69,19 +72,23 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       this.shoppingListService.addIngredient(ingredient);
     }
     
-    this.onClear();
+    this.onClearEdit();
   }
 
-  onClear() {
+  onClearEdit() {
     this.shoppingForm.reset();
     this.editMode = false;
     this.editedItemIndex = null;
+  }
+
+  onClearList() {
+    this.onClearEdit();
     this.shoppingListService.clearIngredients();
   }
 
   onDeleteItem() {
     this.shoppingListService.deleteIngredient(this.editedItemIndex);
-    this.onClear();
+    this.onClearEdit();
   }
 
   ngOnDestroy(): void {

@@ -22,9 +22,7 @@ export class DataStorageService {
         'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/shoppinglist.json',
         shoppinglist
       )
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe();
   }
 
   storeRecipes() {
@@ -34,9 +32,7 @@ export class DataStorageService {
         'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/recipes.json',
         recipes
       )
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe();
   }
 
   fetchShoppingList() {
@@ -44,7 +40,6 @@ export class DataStorageService {
       'https://angulartest-1d86e-default-rtdb.europe-west1.firebasedatabase.app/shoppinglist.json',
     ).pipe(
       tap((ingredients) => {
-        console.log(ingredients)
         if (ingredients != null)
           this.slService.setIngredients(ingredients);
       })
