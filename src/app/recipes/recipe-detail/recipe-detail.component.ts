@@ -16,6 +16,8 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
   originalPortions: number;
   multiplier: number;
+  breakpoint = /([1-9]\.)+/g;
+  descriptionParts : string[];
 
   typeClass: string;
 
@@ -30,6 +32,9 @@ export class RecipeDetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.visibleRecipe = this.recipeService.getRecipe(this.id);
+      this.descriptionParts = this.visibleRecipe.description.split(this.breakpoint).filter(function(v,i) { return !(i%2); });
+      if (this.descriptionParts.length > 1)
+        this.descriptionParts.splice(0, 1);
       this.originalPortions = this.visibleRecipe.portions;
       this.multiplier = this.originalPortions;
       this.typeClass = getFoodIcon(this.visibleRecipe.type as FoodType);

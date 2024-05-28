@@ -1,4 +1,5 @@
 import { Ingredient } from "../shared/ingredient.model";
+import { Nutritions } from "./nutritions.model";
 
 export class Recipe {
   constructor(
@@ -10,5 +11,6 @@ export class Recipe {
     public type : string,
     public difficulty : string,
     public duration : number,
+    public nutritions? : Nutritions
   ) {}
 }

@@ -43,13 +43,13 @@ export class RecipeService {
   }
 
   addRecipe(recipe : Recipe) {
-    this.recipes.push(recipe);
+    this.recipes.push(this.alterRecipe(recipe));
     this.recipes = this.recipes.sort(this.compare);
     this.recipesChanged.next(this.recipes.slice());
   }
 
   setRecipe(index : number, recipe : Recipe) {
-    this.recipes[index] = recipe;
+    this.recipes[index] = this.alterRecipe(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }
 
@@ -61,6 +61,13 @@ export class RecipeService {
   deleteRecipe(index : number) {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
+  }
+
+  alterRecipe(recipe : Recipe) {
+    if (recipe.nutritions && !recipe.nutritions.calories) {
+      recipe.nutritions = null;
+    }
+    return recipe
   }
 
   compare( a : Recipe ,b : Recipe ) {

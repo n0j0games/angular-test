@@ -14,6 +14,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListResolverService } from './shopping-list/shopping-list-resolver.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ShoppingListResolverService } from './shopping-list/shopping-list-resol
     AppRouting,
     HttpClientModule,
     AuthModule,
-    SharedModule
+    SharedModule,    
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,

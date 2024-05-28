@@ -5,6 +5,7 @@ import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
 import { Unit } from '../../shared/unit.enum';
 import { FoodType } from '../../shared/food-type.enum';
+import { Nutritions } from '../nutritions.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,7 +15,7 @@ import { FoodType } from '../../shared/food-type.enum';
 export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode: boolean = false;
-  supscription : Subscription;
+  subscription : Subscription;
   recipeForm: FormGroup;
 
   units = Object.values(Unit);
@@ -27,7 +28,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.supscription = this.route.params.subscribe((params: Params) => {
+    this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
       this.initForm();
@@ -35,7 +36,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.supscription.unsubscribe()
+      if (this.subscription)
+        this.subscription.unsubscribe()
   }
 
   private initForm() {
@@ -47,6 +49,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     let recipeDifficulty = '';
     let recipeDuration : number = 20;
     let recipeIngredients = new FormArray([]);
+    let recipeNutritions : Nutritions = new Nutritions(null,null,null,null);
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
@@ -57,6 +60,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       recipeType = recipe.type ? recipe.type : "Lunch";
       recipeDifficulty = recipe.difficulty ? recipe.difficulty : "Beginner";
       recipeDuration = recipe.duration ? recipe.duration : 20;
+      if (recipe.nutritions)
+        recipeNutritions = recipe.nutritions;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           let unit = "";
@@ -83,6 +88,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       difficulty : new FormControl(recipeDifficulty, Validators.required),
       duration : new FormControl(recipeDuration, [Validators.required, Validators.min(5)]),
       ingredients: recipeIngredients,
+      nutritions : new FormGroup({
+        calories : new FormControl(recipeNutritions.calories, [Validators.min(1)]),
+        carbs : new FormControl(recipeNutritions.carbs , [Validators.min(1)]),
+        proteines : new FormControl(recipeNutritions.proteines, [Validators.min(1)]),
+        fat : new FormControl(recipeNutritions.fat, [Validators.min(1)]),
+      })
     });
   }
 
@@ -92,6 +103,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.editMode) {
+      console.log(this.recipeForm.value)
       this.recipeService.setRecipe(this.id, this.recipeForm.value);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
@@ -107,7 +119,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
-        amount: new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+        amount: new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]), 
         unit: new FormControl(null),
       })
     );
